@@ -27,7 +27,7 @@ st.markdown("Now, the rest is up to you. Start creating your page.")  """
 
 # TODO: Add some titles, introduction, ...
 
-url="http://127.0.0.1:8000/"
+url="https://cracksdetectionapi-5ojt6thguq-ew.a.run.app/predict"
 
 st.set_option('deprecation.showfileUploaderEncoding', False)
 
@@ -39,35 +39,24 @@ if uploaded_file is not None:
 
 
 
-# TODO: Request user input
 if st.button('click me'):
     # print is visible in the server output, not in the page
     print('button clicked!')
     st.write('I was clicked 🎉')
-    bytes_data = uploaded_file.getvalue()
-    #image_api = Image.open(BytesIO(uploaded_file)).convert("RGB")
-    files = {"file": ('image.jpeg', bytes_data, 'image/jpeg')}
-
+    files = {"file":  uploaded_file.getvalue()}
     response=requests.post(url,files=files)
     if response.status_code==200:
         prediction=response.json()['prediction']
         st.write(prediction)
     else:
-        st.write('error)')
+        st.write('error')
+        st.write(type(uploaded_file))
 
 else:
     st.write('I was not clicked 😞')
 
 
-# TODO: Call the API using the user's input
-#   - url is already defined above
-#   - create a params dict based on the user's input
-#   - finally call your API using the requests package
 
-
-# TODO: retrieve the results
-#   - add a little check if you got an ok response (status code 200) or something else
-#   - retrieve the prediction from the JSON
 
 
 # TODO: display the prediction in some fancy way to the user
