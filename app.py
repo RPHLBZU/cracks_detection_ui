@@ -82,6 +82,12 @@ with st.sidebar:
 
 #### Show content dependend on selection in navigation bar
 
+## Defining Button state
+# Initialize session state for buttons if not already done
+if 'Detect if there is a crack' not in st.session_state:
+    st.session_state.button1 = False
+
+
 ## Landing Page (Home)
 if selected == "Home":
     col1, col2 = st.columns([2.5, 1.5])
@@ -93,16 +99,17 @@ if selected == "Home":
         st.write("")
         st.write("")
         if st.button("Start Cracks Detector"):
-            show_page1()
+            show.page1
         st.write("")
         st.write("")
 
         #Right side of page (Picture)
     with col2: #Image
-        image = Image.open("/Users/miraweber/Desktop/Unbenannt.jpg")
+        image = Image.open("media/Unbenannt.jpg")
         st.image(image, use_column_width=True)
 
 ## Cracks Detector Page
+
 if selected == "Cracks Detector":
     st.title("Start to analyze your image for cracks with the Cracks Detector")
     # Step 1:
@@ -114,7 +121,8 @@ if selected == "Cracks Detector":
         ('Building', 'Street', 'Bridge', 'Other')
     )
         # Image Upload (old)
-    url="https://cracksdetectionapi-5ojt6thguq-ew.a.run.app/predict"
+    #url="https://cracksdetectionapi-5ojt6thguq-ew.a.run.app/predict"
+    url="http://127.0.0.1:8000/yolo_predict"
 
     st.set_option('deprecation.showfileUploaderEncoding', False)
 
@@ -130,25 +138,43 @@ if selected == "Cracks Detector":
     # Step 2:
     st.markdown('<p class="big-font">Step 2: Find out if there is a crack (Classification)</p>', unsafe_allow_html=True) #st.write("**Step 2: Find out if there is a crack (Classification)**")
     st.write("Text Text Text Text Text Text Text Text Text Text Text Text Text ")
+
     if st.button("Detect if there is a crack"):
-
-
+        st.session_state.button1 = not st.session_state.button1
         # print is visible in the server output, not in the page
         print('button clicked!')
         st.write('I was clicked 🎉')
         files = {"file":  uploaded_file.getvalue()}
         response=requests.post(url,files=files)
         if response.status_code==200:
-            image = Image.open("/Users/miraweber/Desktop/Cracks.jpg")
+            image = Image.open("media/Cracks.jpg")
             st.image(image, use_column_width=True)
             #prediction=response.json()['prediction']
             #st.write(prediction)
+
         elif response.status_code==204:
-            image = Image.open("/Users/miraweber/Desktop/No_Cracks.jpg")
+            image = Image.open("media/No_cracks.jpg")
             st.image(image, use_column_width=True)
         else:
             st.write('error')
             st.write(type(uploaded_file))
+                # Step 3:
+    st.markdown('<p class="big-font">Step 3: Find out the location of the crack (Segmentation)</p>', unsafe_allow_html=True)  #st.write("**Step 3: Find out the location of the crack (Segmentation)**")
+    st.write("Text Text Text Text Text Text Text Text Text Text Text Text Text ")
+    if st.button("Detect location of the crack"):
+        files = {"file":  uploaded_file.getvalue()}
+        response=requests.post(url,files=files)
+        if response.status_code==200:
+
+            image_stream = BytesIO(response.content)
+            image = Image.open(image_stream)
+
+            st.image(image, use_column_width=True)
+        else :
+            image = Image.open("media/No_cracks.jpg")
+            st.image(image, use_column_width=True)
+
+
 
 #        # Result
 #        col1, col2 = st.columns([2, 2])
@@ -159,12 +185,7 @@ if selected == "Cracks Detector":
 #                image = Image.open("/Users/miraweber/Desktop/No_Cracks.jpg")
 #                st.image(image, use_column_width=True)
 
-    # Step 3:
-    st.markdown('<p class="big-font">Step 3: Find out the location of the crack (Segmentation)</p>', unsafe_allow_html=True)  #st.write("**Step 3: Find out the location of the crack (Segmentation)**")
-    st.write("Text Text Text Text Text Text Text Text Text Text Text Text Text ")
-    if st.button("Detect location of the crack"):
-        if response.status_code==200:
-            st.image(response, use_column_width=True)
+
 
     # Step 4:
     st.markdown('<p class="big-font">Step 4: Estimate the severity of the cracks</p>', unsafe_allow_html=True)  #st.write("**Step 4: Estimate the severity of the crack**")

@@ -15,3 +15,5 @@ requests
 # pandas
 
 pillow
+
+streamlit_option_menu
