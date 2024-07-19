@@ -65,6 +65,18 @@ st.markdown("""
         display: flex;
         justify-content: center;
     }
+    .slider-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .slider-label {
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .stSlider {
+        width: 50% !important;
+    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -78,7 +90,6 @@ with st.sidebar:
         menu_icon="cast",
         default_index=0,
     )
-
 
 #### Show content dependend on selection in navigation bar
 
@@ -99,7 +110,7 @@ if selected == "Home":
         st.write("")
         st.write("")
         if st.button("Start Cracks Detector"):
-            show.page1
+            show.page()
         st.write("")
         st.write("")
 
@@ -112,6 +123,7 @@ if selected == "Home":
 
 if selected == "Cracks Detector":
     st.title("Start to analyze your image for cracks with the Cracks Detector")
+
     # Step 1:
         # Selection of Option (Bulding, Street etc.)
     st.markdown('<p class="big-font">Step 1: Choose your image(s)</p>', unsafe_allow_html=True) #st.write("**Step 1: Choose your image(s)**")
@@ -120,6 +132,7 @@ if selected == "Cracks Detector":
         'Select the kind of image:',
         ('Building', 'Street', 'Bridge', 'Other')
     )
+
         # Image Upload (old)
     #url="https://cracksdetectionapi-5ojt6thguq-ew.a.run.app/predict"
     url="http://127.0.0.1:8000/yolo_predict"
@@ -129,10 +142,12 @@ if selected == "Cracks Detector":
     uploaded_file = st.file_uploader("Choose an Image")
 
     if uploaded_file is not None:
-        image = Image.open(uploaded_file)
-        st.image(image, caption='Uploaded Image', use_column_width=True)
+        col1, col2 = st.columns([1, 5])
+        with col1:
+            image = Image.open(uploaded_file)
+            st.image(image, caption='Uploaded Image', use_column_width=True)
 
-        # Checkbox
+            # Checkbox
     st.checkbox('Accept terms and conditions')
 
     # Step 2:
@@ -142,38 +157,43 @@ if selected == "Cracks Detector":
     if st.button("Detect if there is a crack"):
         st.session_state.button1 = not st.session_state.button1
         # print is visible in the server output, not in the page
-        print('button clicked!')
-        st.write('I was clicked 🎉')
         files = {"file":  uploaded_file.getvalue()}
         response=requests.post(url,files=files)
         if response.status_code==200:
-            image = Image.open("media/Cracks.jpg")
-            st.image(image, use_column_width=True)
+            col1, col2 = st.columns([2, 2])
+            with col1:
+                image = Image.open("media/Cracks.jpg")
+                st.image(image, use_column_width=True)
             #prediction=response.json()['prediction']
             #st.write(prediction)
 
         elif response.status_code==204:
-            image = Image.open("media/No_cracks.jpg")
-            st.image(image, use_column_width=True)
+            col1, col2 = st.columns([2, 2])
+            with col1:
+                image = Image.open("media/No_cracks.jpg")
+                st.image(image, use_column_width=True)
         else:
             st.write('error')
             st.write(type(uploaded_file))
-                # Step 3:
+
+    # Step 3:
     st.markdown('<p class="big-font">Step 3: Find out the location of the crack (Segmentation)</p>', unsafe_allow_html=True)  #st.write("**Step 3: Find out the location of the crack (Segmentation)**")
     st.write("Text Text Text Text Text Text Text Text Text Text Text Text Text ")
     if st.button("Detect location of the crack"):
         files = {"file":  uploaded_file.getvalue()}
         response=requests.post(url,files=files)
         if response.status_code==200:
+            col1, col2 = st.columns([3, 1])
+            with col1:
+                image_stream = BytesIO(response.content)
+                image = Image.open(image_stream)
 
-            image_stream = BytesIO(response.content)
-            image = Image.open(image_stream)
-
-            st.image(image, use_column_width=True)
+                st.image(image, use_column_width=True)
         else :
-            image = Image.open("media/No_cracks.jpg")
-            st.image(image, use_column_width=True)
-
+            col1, col2 = st.columns([2, 2])
+            with col1:
+                image = Image.open("media/No_cracks.jpg")
+                st.image(image, use_column_width=True)
 
 
 #        # Result
@@ -186,27 +206,34 @@ if selected == "Cracks Detector":
 #                st.image(image, use_column_width=True)
 
 
-
     # Step 4:
     st.markdown('<p class="big-font">Step 4: Estimate the severity of the cracks</p>', unsafe_allow_html=True)  #st.write("**Step 4: Estimate the severity of the crack**")
     st.write("Text Text Text Text Text Text Text Text Text Text Text Text Text ")
-
+    st.write("")
+    st.write('**Severity Setting**')
         # Slider
-    percent = st.slider(
-        'Severity Setting',
-        min_value=0,
-        max_value=100,
-        value=50  # Default 50%
-    )
+    with st.container():
+        st.markdown('<div class="slider-container">', unsafe_allow_html=True)
+
+        percent = st.slider(
+            '',
+            min_value=0,
+            max_value=100,
+            value=50  # Default 50%
+        )
+    st.markdown('</div>', unsafe_allow_html=True)
+
     st.write(f'You have choosen {percent}%')
+    st.write("")
+    st.write("")
     st.button("Calculate crack severity")
     st.write("")
     st.write("")
         # Result
-    col1, col2 = st.columns([2, 2])
-    with col1: # Result Cracks
-        image = Image.open("/Users/miraweber/Desktop/Cracks.jpg")
-        st.image(image, use_column_width=True)
+    #col1, col2 = st.columns([2, 2])
+    #with col1: # Result Cracks
+    #    image = Image.open("/Users/miraweber/Desktop/Cracks.jpg")
+    #    st.image(image, use_column_width=True)
 
 
 ## Page Settings
