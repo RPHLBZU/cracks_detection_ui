@@ -134,8 +134,8 @@ if selected == "Cracks Detector":
     )
 
         # Image Upload (old)
-    #url="https://cracksdetectionapi-5ojt6thguq-ew.a.run.app/predict"
-    url="http://127.0.0.1:8000/yolo_predict"
+    url="https://cracksdetectionapi-5ojt6thguq-ew.a.run.app/yolo_predict"
+    #url="http://127.0.0.1:8000/yolo_predict"
 
     st.set_option('deprecation.showfileUploaderEncoding', False)
 
