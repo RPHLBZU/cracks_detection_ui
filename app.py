@@ -210,22 +210,6 @@ if selected == "Cracks Detector":
     st.markdown('<p class="big-font">Step 4: Estimate the severity of the cracks</p>', unsafe_allow_html=True)  #st.write("**Step 4: Estimate the severity of the crack**")
     st.write("Text Text Text Text Text Text Text Text Text Text Text Text Text ")
     st.write("")
-    st.write('**Severity Setting**')
-        # Slider
-    with st.container():
-        st.markdown('<div class="slider-container">', unsafe_allow_html=True)
-
-        percent = st.slider(
-            '',
-            min_value=0,
-            max_value=100,
-            value=50  # Default 50%
-        )
-    st.markdown('</div>', unsafe_allow_html=True)
-
-    st.write(f'You have choosen {percent}%')
-    st.write("")
-    st.write("")
     st.button("Calculate crack severity")
     st.write("")
     st.write("")
@@ -239,14 +223,61 @@ if selected == "Cracks Detector":
 ## Page Settings
 if selected == "Settings":
     st.title("Settings")
-    st.write("Settings Info")
+    st.markdown('<p class="big-font">Models</p>', unsafe_allow_html=True)
+    st.write("Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text")
+    # Table of Models
+    #col1, col2 = st.columns([4, 1])
+   # with col1:
+    image = Image.open("media/Table_Model.jpg")
+    st.image(image, use_column_width=True)
+
+    # Selection of Model
+    option = st.selectbox(
+        'Choose a Model   ---  (Warning: the segmentation task (Step 3) is works with the YOLO mode)',
+        ('Base Model', 'Inception_v32', 'YOLO')
+    )
+    st.write('')
+    st.write('')
+
+    # Severity Setting/ Slider
+    st.markdown('<p class="big-font">Severity Setting</p>', unsafe_allow_html=True) # st.write('**Severity Setting**')
+    st.write("Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text")
+    with st.container():
+        st.markdown('<div class="slider-container">', unsafe_allow_html=True)
+        percent = st.slider(
+            '',
+            min_value=0,
+            max_value=100,
+            value=50  # Default 50%
+        )
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    st.write(f'You have choosen {percent}%')
 
 ## Page Background
 if selected == "Background":
     st.title("Background")
-    st.write("Background Info")
+    st.markdown('<p class="big-font">Ethics</p>', unsafe_allow_html=True) # st.write('**Severity Setting**')
+    st.write("**Data used for training:**")
+    st.write("Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text")
+    st.write("")
+    st.write("**Pre-Trained Model use:**")
+    st.write("Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text")
 
 ## Page Contact
 if selected == "Contact":
     st.title("Contact")
-    st.write("Contact Info")
+    col1, col2 = st.columns([1, 6])
+    with col1:
+        st.write('Team member1')
+        image = Image.open("media/Team.jpg")
+        st.image(image, use_column_width=True)
+        st.write('Team member2')
+        image = Image.open("media/Team.jpg")
+        st.image(image, use_column_width=True)
+        st.write('Team member3')
+        image = Image.open("media/Team.jpg")
+        st.image(image, use_column_width=True)
+        st.write('Team member4')
+        image = Image.open("media/Team.jpg")
+        st.image(image, use_column_width=True)
