@@ -1,5 +1,6 @@
 import os
 import streamlit as st
+from streamlit_gsheets import GSheetsConnection
 import requests
 from PIL import Image
 from io import BytesIO
@@ -85,9 +86,13 @@ st.write("Two models are used for the predictions, here is described the paramet
 # Table of Models
 #col1, col2 = st.columns([4, 1])
 # with col1:
-image = Image.open("media/Table_Model.jpg")
-st.image(image, use_column_width=True)
+# image = Image.open("media/Table_Model.jpg")
+# st.image(image, use_column_width=True)
 
+# Create a connection object.
+conn = st.connection("gsheets", type=GSheetsConnection)
+df = conn.read()
+st.dataframe(df)
 
 
 # Severity Setting/ Slider
