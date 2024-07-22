@@ -114,7 +114,7 @@ st.markdown('<p class="big-font">Step 2: Find out if there is a crack (Classific
 st.write("Text Text Text Text Text Text Text Text Text Text Text Text Text ")
 
 if st.button("Detect if there is a crack"):
-    st.session_state.button1 = not st.session_state.button1
+    # st.session_state.button1 = not st.session_state.button1
     # print is visible in the server output, not in the page
     files = {"file":  uploaded_file.getvalue()}
     response=requests.post(url,files=files)
