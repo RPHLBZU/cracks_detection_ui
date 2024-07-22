@@ -186,17 +186,20 @@ if selected == "Cracks Detector":
         # print is visible in the server output, not in the page
         files = {"file":  uploaded_file.getvalue()}
         response=requests.post(url,files=files)
+        col1, col2 = st.columns([2, 2])
         if response.status_code==200:
-            col1, col2 = st.columns([2, 2])
+
             with col1:
+                st.write("Prediction from YOLO model")
                 image = Image.open("media/Cracks.jpg")
                 st.image(image, use_column_width=True)
             #prediction=response.json()['prediction']
             #st.write(prediction)
 
         elif response.status_code==204:
-            col1, col2 = st.columns([2, 2])
+
             with col1:
+                st.write("Prediction from YOLO model")
                 image = Image.open("media/No_cracks.jpg")
                 st.image(image, use_column_width=True)
         else:
@@ -207,14 +210,16 @@ if selected == "Cracks Detector":
         results=response_CNN["prediction"]
 
         if results <0.5:
-            col1, col2 = st.columns([2, 2])
+
             with col1:
+                st.write("Prediction from CNN model")
                 image = Image.open("media/No_cracks.jpg")
                 st.image(image, use_column_width=True)
                 st.write(results)
         else :
-            col1, col2 = st.columns([2, 2])
+
             with col1:
+                st.write("Prediction from CNN model")
                 image = Image.open("media/Cracks.jpg")
                 st.image(image, use_column_width=True)
                 st.write(results)
