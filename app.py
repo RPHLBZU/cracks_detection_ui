@@ -41,6 +41,16 @@ st.set_page_config(page_title="Streamlit Navigation Example", layout="wide")
 
 st.markdown("""
     <style>
+    .css-1d391kg {
+        background-color: #f8f9fa;
+        color: #000000;
+    }
+    .css-1d391kg div {
+        background-color: #000000;
+    }
+    .css-1d391kg a {
+        color: white;
+    }
     .stButton>button {
         background-color: #00878D;
         color: white;
@@ -78,15 +88,34 @@ st.markdown("""
         width: 50% !important;
     }
     </style>
-""", unsafe_allow_html=True)
+""",
+unsafe_allow_html=True)
+
+button_html = """
+    <style>
+    .button {
+        background-color: #00878D;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 12px;
+    }
+    </style>
+    """
 
 
 #### Navigation bar
 with st.sidebar:
     selected = option_menu(
         menu_title="",
-        options=["Home", "Cracks Detector", "Settings", "Background", "Contact"],
-        icons=["house", "cloud-upload", "gear", "book", "telephone"],  # Labels
+        options=["Home", "Cracks Detector", "Settings", "Background", "Vision", "Team"],
+        icons=["house", "cloud-upload", "gear", "book", "eye", "person"],  # Labels
         menu_icon="cast",
         default_index=0,
     )
@@ -109,12 +138,8 @@ if selected == "Home":
         st.write("Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text t Text Text Text Text Text Text Text Text Text Text Text Text Text Te")
         st.write("")
         st.write("")
-        if st.button("Start Cracks Detector"):
-            show.page()
-        st.write("")
-        st.write("")
-
-        #Right side of page (Picture)
+        #st.link_button("Start Cracks Detector", "http://localhost:8501/#analyze-cracks-with-the-cracks-detector-to-prevent-accitents-and-to-anticipate-climate-change")
+    #Right side of page (Picture)
     with col2: #Image
         image = Image.open("media/Unbenannt.jpg")
         st.image(image, use_column_width=True)
@@ -264,20 +289,36 @@ if selected == "Background":
     st.write("**Pre-Trained Model use:**")
     st.write("Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text")
 
-## Page Contact
-if selected == "Contact":
-    st.title("Contact")
-    col1, col2 = st.columns([1, 6])
+## Page Vision
+if selected == "Vision":
+    st.title("Vision")
+    st.write("**Beta Version:**")
+    #st.markdown('<p class="big-font">Beta Version</p>', unsafe_allow_html=True) # st.write('**Severity Setting**')
+    st.write("Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text")
+    st.write("**Next Steps:**")
+    #st.markdown('<p class="big-font">Next Steps</p>', unsafe_allow_html=True) # st.write('**Severity Setting**')
+    st.write("Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text")
+
+
+## Page Team
+if selected == "Team":
+    st.title("Team")
+    st.write('')
+    st.write("Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text")
+    st.write('')
+    col1, col2 = st.columns([5, 2])
     with col1:
-        st.write('Team member1')
-        image = Image.open("media/Team.jpg")
-        st.image(image, use_column_width=True)
-        st.write('Team member2')
-        image = Image.open("media/Team.jpg")
-        st.image(image, use_column_width=True)
-        st.write('Team member3')
-        image = Image.open("media/Team.jpg")
-        st.image(image, use_column_width=True)
-        st.write('Team member4')
-        image = Image.open("media/Team.jpg")
+#        st.write('Team member1')
+#        image = Image.open("media/Team.jpg")
+#        st.image(image, use_column_width=True)
+#        st.write('Team member2')
+#        image = Image.open("media/Team.jpg")
+#        st.image(image, use_column_width=True)
+#        st.write('Team member3')
+#        image = Image.open("media/Team.jpg")
+#        st.image(image, use_column_width=True)
+#        st.write('Team member4')
+#        image = Image.open("media/Team.jpg")
+#        st.image(image, use_column_width=True)
+        image = Image.open("media/Team_all.jpg")
         st.image(image, use_column_width=True)
