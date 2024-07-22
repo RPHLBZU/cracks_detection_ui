@@ -329,27 +329,3 @@ if selected == "Vision":
     st.write("**Next Steps:**")
     #st.markdown('<p class="big-font">Next Steps</p>', unsafe_allow_html=True) # st.write('**Severity Setting**')
     st.write("Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text")
-
-
-## Page Team
-if selected == "Team":
-    st.title("Team")
-    st.write('')
-    st.write("Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text")
-    st.write('')
-    col1, col2 = st.columns([5, 2])
-    with col1:
-#        st.write('Team member1')
-#        image = Image.open("media/Team.jpg")
-#        st.image(image, use_column_width=True)
-#        st.write('Team member2')
-#        image = Image.open("media/Team.jpg")
-#        st.image(image, use_column_width=True)
-#        st.write('Team member3')
-#        image = Image.open("media/Team.jpg")
-#        st.image(image, use_column_width=True)
-#        st.write('Team member4')
-#        image = Image.open("media/Team.jpg")
-#        st.image(image, use_column_width=True)
-        image = Image.open("media/Team_all.jpg")
-        st.image(image, use_column_width=True)
