@@ -160,7 +160,9 @@ if selected == "Cracks Detector":
 
         # Image Upload (old)
     url="https://cracksdetectionapi-5ojt6thguq-ew.a.run.app/yolo_predict"
-    #url="http://127.0.0.1:8000/yolo_predict"
+    url_CNN="https://cracksdetectionapi-5ojt6thguq-ew.a.run.app/predict"
+    url_severity="https://cracksdetectionapi-5ojt6thguq-ew.a.run.app/predict_severity"
+    #url_severity="http://127.0.0.1:8000/predict_severity"
 
     st.set_option('deprecation.showfileUploaderEncoding', False)
 
@@ -201,6 +203,22 @@ if selected == "Cracks Detector":
             st.write('error')
             st.write(type(uploaded_file))
 
+        response_CNN=requests.post(url_CNN,files=files).json()
+        results=response_CNN["prediction"]
+
+        if results <0.5:
+            col1, col2 = st.columns([2, 2])
+            with col1:
+                image = Image.open("media/No_cracks.jpg")
+                st.image(image, use_column_width=True)
+                st.write(results)
+        else :
+            col1, col2 = st.columns([2, 2])
+            with col1:
+                image = Image.open("media/Cracks.jpg")
+                st.image(image, use_column_width=True)
+                st.write(results)
+
     # Step 3:
     st.markdown('<p class="big-font">Step 3: Find out the location of the crack (Segmentation)</p>', unsafe_allow_html=True)  #st.write("**Step 3: Find out the location of the crack (Segmentation)**")
     st.write("Text Text Text Text Text Text Text Text Text Text Text Text Text ")
@@ -235,7 +253,20 @@ if selected == "Cracks Detector":
     st.markdown('<p class="big-font">Step 4: Estimate the severity of the cracks</p>', unsafe_allow_html=True)  #st.write("**Step 4: Estimate the severity of the crack**")
     st.write("Text Text Text Text Text Text Text Text Text Text Text Text Text ")
     st.write("")
-    st.button("Calculate crack severity")
+    if st.button("Calculate crack severity"):
+        files = {"file":  uploaded_file.getvalue()}
+        response=requests.post(url_severity,files=files)
+        results=response.json()["severity"]
+        if response.status_code==200:
+            col1, col2 = st.columns([3, 1])
+            with col1:
+                st.write(results)
+
+        else :
+            col1, col2 = st.columns([2, 2])
+            with col1:
+                image = Image.open("media/No_cracks.jpg")
+                st.image(image, use_column_width=True)
     st.write("")
     st.write("")
         # Result
