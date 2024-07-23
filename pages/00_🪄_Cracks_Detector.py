@@ -204,7 +204,6 @@ if st.button("Calculate crack severity"):
     results=response.json()["severity"]
     if response.status_code==200:
 
-
             st.progress(results)
 
             st.metric(label="Severity", value=f"{results}")
