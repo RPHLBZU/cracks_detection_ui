@@ -95,10 +95,15 @@ with st.expander("YOLO Architecture"):
     st.image(image, use_column_width=True)
 
 
-# Severity Setting Section
-with st.expander("Severity Setting"):
+# Severity Section
+with st.expander("Severity of Cracks"):
     st.markdown('<p class="big-font">Severity Setting</p>', unsafe_allow_html=True) # st.write('**Severity Setting**')
     st.markdown("""
+    **Computation**:
+    Crack Density (Cd) is calculated as the total cracked area divided by the total surface area of the concrete element
+    being evaluated.
+    \[ C_d = \frac{A_{\text{total}}}{S_{\text{total}}} \]
+
     **Low Severity**:
     - Crack Density less than 0.1%
     - Indicates minor surface cracks that may not significantly affect structural integrity.
