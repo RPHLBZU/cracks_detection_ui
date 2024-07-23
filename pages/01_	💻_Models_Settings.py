@@ -82,41 +82,28 @@ button_html = """
 st.title("Settings")
 
 # Models Comparison Section
-with st.expander("Models Comparison"):
+with st.expander("**Models Comparison**"):
     st.markdown('<p class="big-font">Models</p>', unsafe_allow_html=True)
     st.write("Two models are used for the predictions, here are described the parameters we used to train them")
     image = Image.open("media/models_settings.png")
     st.image(image, use_column_width=True)
 
-
-# YOLO Architecture Section
-with st.expander("YOLO Architecture"):
-    image = Image.open("media/yolo_architecture.png")
-    st.image(image, use_column_width=True)
-
-
 # Severity Section
-with st.expander("Severity of Cracks"):
+with st.expander("**Severity of Cracks**"):
     st.markdown('<p class="big-font">Severity Setting</p>', unsafe_allow_html=True) # st.write('**Severity Setting**')
     st.markdown("""
     **Computation**:
-    Crack Density (Cd) is calculated as the total cracked area divided by the total surface area of the concrete element
-    being evaluated.
-    The mask issued from segmentation is 5 times larger than the cracks themselves. Thresholds indicated below include the ratio of 5 between mask and crack.
+    Crack Density (Cd) is calculated as the total cracked area divided by the total surface area of the concrete element being evaluated. The mask issued from segmentation is 5 times larger than the cracks themselves. Thresholds indicated below include the ratio of 5 between mask and crack.
 
     **Low Severity**:
     - Crack Density less than 0.5%
     - Indicates minor surface cracks that may not significantly affect structural integrity.
 
     **Moderate Severity**:
-
     - Crack Density between 0.5% and 2.5%
     - Represents a more considerable number or width of cracks that could affect durability and may require repair.
 
     **High Severity**:
-
     - Crack Density greater than 2.5%
-    - Indicates a high density of cracks or very wide cracks that could compromise structural integrity and require immediate attention and repair
-    ([American Concrete Institute]
-    (https://www.concrete.org/publications/internationalconcreteabstractsportal/m/details/id/18555)
+    - Indicates a high density of cracks or very wide cracks that could compromise structural integrity and require immediate attention and repair ([American Concrete Institute] (https://www.concrete.org/publications/internationalconcreteabstractsportal/m/details/id/18555)
     """)
