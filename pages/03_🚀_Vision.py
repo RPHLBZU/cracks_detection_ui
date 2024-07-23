@@ -86,5 +86,10 @@ st.image(image, use_column_width=True)
 
 st.write("**Vision and Next Steps:**")
 st.write("Our vision for the Cracks Detector is to enable a comprehensive global perspective on and evaluation of infrastructure. Furthermore, we plan to integrate further data sources like 3D to make the assessment of infrastucture as easy as possible. Besides, reinforcement learning is planed to be integrated to improve analysis accuracy and develop adaptive maintenance strategies. With these steps the Cracks Detector should further contribute to revolutionizing the safety and sustainability of infrastructure worldwide.")
-image = Image.open("media/Vision.jpg")
-st.image(image, use_column_width=True)
+st.write("")
+col1, col2 = st.columns([2, 2.3])
+with col1:
+    image = Image.open("media/Vision.jpg")
+    st.image(image, use_column_width=True)
+with col2:
+    st.write("")
