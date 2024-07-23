@@ -66,6 +66,7 @@ st.markdown("""
     }
     .stButton>button:hover {
         background-color: #00878D;
+        color: white;
     }
     .big-font {
         font-size:30px !important;
@@ -91,34 +92,6 @@ st.markdown("""
 """,
 unsafe_allow_html=True)
 
-button_html = """
-    <style>
-    .button {
-        background-color: #00878D;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 4px 2px;
-        cursor: pointer;
-        border-radius: 12px;
-    }
-    </style>
-    """
-
-
-#### Navigation bar
-with st.sidebar:
-    selected = option_menu(
-        menu_title="",
-        options=["Home", "Cracks Detector", "Settings", "Background", "Vision", "Team"],
-        icons=["house", "cloud-upload", "gear", "book", "eye", "person"],  # Labels
-        menu_icon="cast",
-        default_index=0,
-    )
 
 #### Show content dependend on selection in navigation bar
 
@@ -127,210 +100,19 @@ with st.sidebar:
 if 'Detect if there is a crack' not in st.session_state:
     st.session_state.button1 = False
 
-
 ## Landing Page (Home)
-if selected == "Home":
     col1, col2 = st.columns([2.5, 1.5])
-        #Left side of page (Text)
+    #Left side of page (Text)
     with col1: #Text
         st.title("Analyze cracks with the cracks detector to prevent accitents and to anticipate climate change")
         st.write("")
-        st.write("Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text t Text Text Text Text Text Text Text Text Text Text Text Text Text Te")
         st.write("")
         st.write("")
-        #st.link_button("Start Cracks Detector", "http://localhost:8501/#analyze-cracks-with-the-cracks-detector-to-prevent-accitents-and-to-anticipate-climate-change")
+        st.write("")
+        st.write("")
+        st.write("")
+        st.link_button("Start Cracks Detector", "http://localhost:8501/Cracks_Detector", type="primary")
     #Right side of page (Picture)
     with col2: #Image
         image = Image.open("media/Unbenannt.jpg")
         st.image(image, use_column_width=True)
-
-## Cracks Detector Page
-
-if selected == "Cracks Detector":
-    st.title("Start to analyze your image for cracks with the Cracks Detector")
-
-    # Step 1:
-        # Selection of Option (Bulding, Street etc.)
-    st.markdown('<p class="big-font">Step 1: Choose your image(s)</p>', unsafe_allow_html=True) #st.write("**Step 1: Choose your image(s)**")
-
-    option = st.selectbox(
-        'Select the kind of image:',
-        ('Building', 'Street', 'Bridge', 'Other')
-    )
-
-        # Image Upload (old)
-    url="https://cracksdetectionapi-5ojt6thguq-ew.a.run.app/yolo_predict"
-    url_CNN="https://cracksdetectionapi-5ojt6thguq-ew.a.run.app/predict"
-    url_severity="https://cracksdetectionapi-5ojt6thguq-ew.a.run.app/predict_severity"
-    #url_severity="http://127.0.0.1:8000/predict_severity"
-
-    st.set_option('deprecation.showfileUploaderEncoding', False)
-
-    uploaded_file = st.file_uploader("Choose an Image")
-
-    if uploaded_file is not None:
-        col1, col2 = st.columns([1, 5])
-        with col1:
-            image = Image.open(uploaded_file)
-            st.image(image, caption='Uploaded Image', use_column_width=True)
-
-            # Checkbox
-    st.checkbox('Accept terms and conditions')
-
-    # Step 2:
-    st.markdown('<p class="big-font">Step 2: Find out if there is a crack (Classification)</p>', unsafe_allow_html=True) #st.write("**Step 2: Find out if there is a crack (Classification)**")
-    st.write("Text Text Text Text Text Text Text Text Text Text Text Text Text ")
-
-    if st.button("Detect if there is a crack"):
-        st.session_state.button1 = not st.session_state.button1
-        # print is visible in the server output, not in the page
-        files = {"file":  uploaded_file.getvalue()}
-        response=requests.post(url,files=files)
-        col1, col2 = st.columns([2, 2])
-        if response.status_code==200:
-
-            with col1:
-                st.write("Prediction from YOLO model")
-                image = Image.open("media/Cracks.jpg")
-                st.image(image, use_column_width=True)
-            #prediction=response.json()['prediction']
-            #st.write(prediction)
-
-        elif response.status_code==204:
-
-            with col1:
-                st.write("Prediction from YOLO model")
-                image = Image.open("media/No_cracks.jpg")
-                st.image(image, use_column_width=True)
-        else:
-            st.write('error')
-            st.write(type(uploaded_file))
-
-        response_CNN=requests.post(url_CNN,files=files).json()
-        results=response_CNN["prediction"]
-
-        if results <0.5:
-
-            with col1:
-                st.write("Prediction from CNN model")
-                image = Image.open("media/No_cracks.jpg")
-                st.image(image, use_column_width=True)
-                st.write(results)
-        else :
-
-            with col1:
-                st.write("Prediction from CNN model")
-                image = Image.open("media/Cracks.jpg")
-                st.image(image, use_column_width=True)
-                st.write(results)
-
-    # Step 3:
-    st.markdown('<p class="big-font">Step 3: Find out the location of the crack (Segmentation)</p>', unsafe_allow_html=True)  #st.write("**Step 3: Find out the location of the crack (Segmentation)**")
-    st.write("Text Text Text Text Text Text Text Text Text Text Text Text Text ")
-    if st.button("Detect location of the crack"):
-        files = {"file":  uploaded_file.getvalue()}
-        response=requests.post(url,files=files)
-        if response.status_code==200:
-            col1, col2 = st.columns([3, 1])
-            with col1:
-                image_stream = BytesIO(response.content)
-                image = Image.open(image_stream)
-
-                st.image(image, use_column_width=True)
-        else :
-            col1, col2 = st.columns([2, 2])
-            with col1:
-                image = Image.open("media/No_cracks.jpg")
-                st.image(image, use_column_width=True)
-
-
-#        # Result
-#        col1, col2 = st.columns([2, 2])
-#        with col1: # Result Cracks
-#            image = Image.open("/Users/miraweber/Desktop/Cracks.jpg")
-#            st.image(image, use_column_width=True)
-#        with col2: # Result No Cracks
-#                image = Image.open("/Users/miraweber/Desktop/No_Cracks.jpg")
-#                st.image(image, use_column_width=True)
-
-
-    # Step 4:
-    st.markdown('<p class="big-font">Step 4: Estimate the severity of the cracks</p>', unsafe_allow_html=True)  #st.write("**Step 4: Estimate the severity of the crack**")
-    st.write("Text Text Text Text Text Text Text Text Text Text Text Text Text ")
-    st.write("")
-    if st.button("Calculate crack severity"):
-        files = {"file":  uploaded_file.getvalue()}
-        response=requests.post(url_severity,files=files)
-        results=response.json()["severity"]
-        if response.status_code==200:
-            col1, col2 = st.columns([3, 1])
-            with col1:
-                st.write(results)
-
-        else :
-            col1, col2 = st.columns([2, 2])
-            with col1:
-                image = Image.open("media/No_cracks.jpg")
-                st.image(image, use_column_width=True)
-    st.write("")
-    st.write("")
-        # Result
-    #col1, col2 = st.columns([2, 2])
-    #with col1: # Result Cracks
-    #    image = Image.open("/Users/miraweber/Desktop/Cracks.jpg")
-    #    st.image(image, use_column_width=True)
-
-
-## Page Settings
-if selected == "Settings":
-    st.title("Settings")
-    st.markdown('<p class="big-font">Models</p>', unsafe_allow_html=True)
-    st.write("Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text")
-    # Table of Models
-    #col1, col2 = st.columns([4, 1])
-   # with col1:
-    image = Image.open("media/Table_Model.jpg")
-    st.image(image, use_column_width=True)
-
-    # Selection of Model
-    option = st.selectbox(
-        'Choose a Model   ---  (Warning: the segmentation task (Step 3) is works with the YOLO mode)',
-        ('Base Model', 'Inception_v32', 'YOLO')
-    )
-    st.write('')
-    st.write('')
-
-    # Severity Setting/ Slider
-    st.markdown('<p class="big-font">Severity Setting</p>', unsafe_allow_html=True) # st.write('**Severity Setting**')
-    st.write("Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text")
-    with st.container():
-        st.markdown('<div class="slider-container">', unsafe_allow_html=True)
-        percent = st.slider(
-            '',
-            min_value=0,
-            max_value=100,
-            value=50  # Default 50%
-        )
-    st.markdown('</div>', unsafe_allow_html=True)
-
-    st.write(f'You have choosen {percent}%')
-
-## Page Background
-if selected == "Background":
-    st.title("Background")
-    st.markdown('<p class="big-font">Ethics</p>', unsafe_allow_html=True) # st.write('**Severity Setting**')
-    st.write("**Data used for training:**")
-    st.write("Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text")
-    st.write("")
-    st.write("**Pre-Trained Model use:**")
-    st.write("Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text")
-
-## Page Vision
-if selected == "Vision":
-    st.title("Vision")
-    st.write("**Beta Version:**")
-    #st.markdown('<p class="big-font">Beta Version</p>', unsafe_allow_html=True) # st.write('**Severity Setting**')
-    st.write("Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text")
-    st.write("**Next Steps:**")
-    #st.markdown('<p class="big-font">Next Steps</p>', unsafe_allow_html=True) # st.write('**Severity Setting**')
-    st.write("Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text")
