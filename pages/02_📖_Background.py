@@ -97,10 +97,15 @@ with st.expander("**Data used for training**"):
         These more than 100 images were used for training, validation and test.
         """)
 
-with st.expander("**Pre-Trained Model use**"):
+with st.expander("**Pre-Trained Model and Architecture used**"):
     st.markdown("""- YOLOv8m-seg:
                 """)
     image = Image.open("media/yolo_architecture.png")
+    st.image(image, use_column_width=True)
+
+    st.markdown("""- Convolutional Neural Network (CNN):
+                """)
+    image = Image.open("media/CNN.jpg")
     st.image(image, use_column_width=True)
 
     #Ethics
