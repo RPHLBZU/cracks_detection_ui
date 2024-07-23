@@ -98,14 +98,20 @@ with st.expander("YOLO Architecture"):
 # Severity Setting Section
 with st.expander("Severity Setting"):
     st.markdown('<p class="big-font">Severity Setting</p>', unsafe_allow_html=True) # st.write('**Severity Setting**')
-    st.write("Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text")
-    with st.container():
-        st.markdown('<div class="slider-container">', unsafe_allow_html=True)
-        percent = st.slider(
-            '',
-            min_value=0,
-            max_value=100,
-            value=50  # Default 50%
-        )
-    st.markdown('</div>', unsafe_allow_html=True)
-    st.write(f'You have choosen {percent}%')
+    st.markdown("""
+    **Low Severity**:
+    - Crack Density less than 0.1%
+    - Indicates minor surface cracks that may not significantly affect structural integrity.
+
+    **Moderate Severity**:
+
+    - Crack Density between 0.1% and 0.5%
+    - Represents a more considerable number or width of cracks that could affect durability and may require repair.
+
+    **High Severity**:
+
+    - Crack Density greater than 0.5%
+    - Indicates a high density of cracks or very wide cracks that could compromise structural integrity and require immediate attention and repair
+    ([American Concrete Institute]
+    (https://www.concrete.org/publications/internationalconcreteabstractsportal/m/details/id/18555)
+    """)
