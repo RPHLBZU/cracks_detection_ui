@@ -205,13 +205,7 @@ if st.button("Calculate crack severity"):
     if response.status_code==200:
         col1, col2 = st.columns([1,3])
         with col1:
-            st.markdown("""
-            <style>
-            .stProgress .st-bo {
-            background-color: green;
-            }
-            </style>
-            """, unsafe_allow_html=True)
+
             st.progress(results)
 
             st.metric(label="Severity", value=f"{results}")
