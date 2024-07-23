@@ -102,7 +102,6 @@ with st.expander("Severity of Cracks"):
     **Computation**:
     Crack Density (Cd) is calculated as the total cracked area divided by the total surface area of the concrete element
     being evaluated.
-    \[ C_d = \frac{A_{\text{total}}}{S_{\text{total}}} \]
 
     **Low Severity**:
     - Crack Density less than 0.1%
