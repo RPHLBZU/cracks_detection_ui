@@ -116,7 +116,8 @@ st.checkbox('Accept terms and conditions')
 
 # Step 2:
 st.markdown('<p class="big-font">Step 2: Find out if there is a crack (Classification)</p>', unsafe_allow_html=True) #st.write("**Step 2: Find out if there is a crack (Classification)**")
-st.write('Two models will be running - for the "CNN" one you have access to the probability of having cracks returned by the model')
+st.write('Two models will be running YOLO & CNN')
+st.write('For the "CNN" one you have access to the probability of having cracks returned by the model - NOTA to enable a good recall and alert engineer even when there is doubt - the threshod has been put to 34%, "if probability is higher than 34% an alerte will be display"')
 
 if st.button("Detect if there is a crack"):
     # st.session_state.button1 = not st.session_state.button1
@@ -145,15 +146,15 @@ if st.button("Detect if there is a crack"):
         st.write(type(uploaded_file))
 
     response_CNN=requests.post(url_CNN,files=files).json()
-    results=round(response_CNN["prediction"],2)*100
+    results=response_CNN["prediction"]*100
 
-    if results <0.5:
+    if results <34:
 
         with col2:
             st.markdown('<p class="slider-label">Prediction from CNN model</p>', unsafe_allow_html=True)
             image = Image.open("media/No_cracks.jpg")
             st.image(image, use_column_width=True)
-            results_UI=f'The probability of having cracks, returned by the CNN model, is {results} %'
+            results_UI=f'The probability of having cracks, returned by the CNN model, is {round(results)} %'
             st.write(results_UI)
     else :
 
@@ -161,7 +162,7 @@ if st.button("Detect if there is a crack"):
             st.markdown('<p class="slider-label">Prediction from CNN model</p>', unsafe_allow_html=True)
             image = Image.open("media/Cracks.jpg")
             st.image(image, use_column_width=True)
-            results_UI=f'The probability of having cracks, returned by the CNN model, is {results} %'
+            results_UI=f'The probability of having cracks, returned by the CNN model, is {round(results)} %'
             st.write(results_UI)
 
 # Step 3:
@@ -196,16 +197,23 @@ if st.button("Detect location of the crack"):
 
 # Step 4:
 st.markdown('<p class="big-font">Step 4: Estimate the severity of the cracks</p>', unsafe_allow_html=True)  #st.write("**Step 4: Estimate the severity of the crack**")
-st.write('⚠️ - Warning - The calculation of this parameter is still under study - see the Seetings and Vision page for more information' )
+st.write('⚠️ - Warning - Only the éYOLO model gives us the severity - The calculation of this parameter is still under study - see the Seetings and Vision page for more information' )
 st.write("")
 if st.button("Calculate crack severity"):
     files = {"file":  uploaded_file.getvalue()}
     response=requests.post(url_severity,files=files)
     results=response.json()["severity"]
+
     if response.status_code==200:
-        col1, col2 = st.columns([3, 1])
-        with col1:
-            st.write(results)
+
+            if results <0.005:
+                delta ="Low Severity"
+            elif results <0.025 :
+                delta='-Moderate Severity'
+            else :
+                delta="-High Severity"
+
+            st.metric(label="Severity", value=f"{results*100} %", delta=delta)
 
     else :
         col1, col2 = st.columns([2, 2])
@@ -214,8 +222,3 @@ if st.button("Calculate crack severity"):
             st.image(image, use_column_width=True)
 st.write("")
 st.write("")
-    # Result
-#col1, col2 = st.columns([2, 2])
-#with col1: # Result Cracks
-#    image = Image.open("/Users/miraweber/Desktop/Cracks.jpg")
-#    st.image(image, use_column_width=True)

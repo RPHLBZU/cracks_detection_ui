@@ -1,75 +1,51 @@
-# Basic package setup for students to use
+# Cracks Detector
 
-This is a generic boilerplate for basic ML/DL projects.
-It has the basic functionality for doing one-off predictions based on simple inputs (i.e. not on images for example, or large numbers of inputs).
+Cracks Detector is a Python package designed to predict cracks on infrastructures (roads, bridges, buildings) using deep learning models on photographs. This tool helps in identifying and assessing the severity of cracks, making it a valuable resource for maintenance and safety inspections.
 
-It contains nothing more than all the configuraton files for the project. No actual code.
+# Features
+Predicts the presence of cracks in images with 2 different models Assesses the severity and dimensions of detected cracks.
 
-## What's being used:
+## Models
+Model2.keras is a custom made Convolutional Neural Network, built, trained and evaluated by the team who created this package 
+Yolov8m-seg was used as pre-trained model. It was then trained on 30 epochs with roboflow crack-detection dataset.
+Models are described in /pages (01_Models_Settings.py)
+
+## Datasets
+Roboflow dataset https://universe.roboflow.com/university-bswxt/crack-bphdr/dataset/2
+Kaggle Surcace Crack Detection https://www.kaggle.com/datasets/arunrk7/surface-crack-detection
+SDNet 2018 https://www.kaggle.com/datasets/aniruddhsharma/structural-defects-network-concrete-crack-images
+
+# Usage
+This package is the front-end part of a web application. https://cracksdetectionui-a8f28peutiafdfxnrmdqzw.streamlit.app/
+
+**Examples**
+Here are some example images and their predicted results: 
+![image](https://github.com/user-attachments/assets/b90ab65e-e20d-4d6e-b6eb-e62fb2ff99cd)
+
+
+
+# Acknowledgements
+Yolo model
+We acknowledge the use of the Ultralytics YOLOv8 model in this application. Proper credit is given to the authors of this model, as detailed below: @software{yolov8_ultralytics, author = {Glenn Jocher and Ayush Chaurasia and Jing Qiu}, title = {Ultralytics YOLOv8}, version = {8.0.0}, year = {2023}, url = {https://github.com/ultralytics/ultralytics}, orcid = {0000-0001-5950-6979, 0000-0002-7603-6750, 0000-0003-3783-7069}, license = {AGPL-3.0} } The use of this model is in accordance with the AGPL-3.0 license, and we ensure that our application complies with the terms of this license.
+
+
+
+# What's being used
 - Streamlit for the front end
 - FastAPI serving the back end
 - Model storage on GCS / MLFlow (python functions to be written)
-- Everything to deploy with Docker
 
-## Using this template:
 
-> :warning: **Back-end and front-end should go in separate repositories** :warning:
 
-All commands needed have been included in the Makefiles:
+## All commands needed have been included in the Makefiles**
 
-### Back-end
-
-- `make run_api` to run the API locally
-- `make docker_#####` to run Docker stuff:
-  - Commands to build and run (nteractively) a local Docker image
-  - Commands to build and run (interactively) a Docker image ready for GCP (i.e. using linux/amd64 infra)
-  - Commands to push and deploy to GCP
-
-Just type `make <tab>` on the command line to see all possibilities
-
-### Front-end
 - `make streamlit`: defaults to `make streamlit_local`
 - `make streamlit_local`: run streamlit locally and connect to local API (running through uvicorn on port 8000)
 - `make streamlit_local_docker`: run streamlit locally and connect to local Docker container (running on port 8080)
 - `make streamlit_cloud`: run streamlit locally and connect to cloud API
 
-Just type `make <tab>` on the command line to see all possibilities
 
-URIs for local and cloud APIs are included in the `.streamlit/secrets.toml` file (or in the Secrets setting on Streamlit Cloud)
-
-
-## Complete the configuration
-
-### Back-end
-
-Copy `.env.sample` and `.env.yaml.sample` to new files `.env` and `.env.yaml` and update all variables with your project identifiers.
-
-Requirements.txt:
-- `requirements.txt`: for production excluding all packages that are redundant in prod
-= `requirements_dev.txt`: adding packages for local usage including ipython, debugging, matplotlib, etc.
-- Update `requirements.txt` if you use TensorFlow (uncomment the respective lines).
-
-### Front-end
-
-Complete the following files (if needed):
-- `requirements.txt`
-- `.streamlit/config.toml`: mainly for layout purposes
-- `.streamlit/secrets.toml`: base it on the sample file; reflect the contents also in the Secrets settings on Streamlit Cloud
-
-## Repository structure (highlights)
-
-> :warning: **Back-end and front-end should go in separate repositories** :warning:
-
-### Back-end
-
-- `packagename/`: your package (rename this, and adapt the configuration files - tip: Ctrl-Shift-F or Cmd-Shift-F in VS Code)
-  - `data/`: only small static data (no large files), or temporary files (not tracked by git)
-- `api/`: this is where your API code goes
-- `models/`: your saved models (not tracked by git, should be stored elsewhere: GCS, MLFlow, ...)
-- `raw_data/`: your data (not tracked by git, should be stored elsewhere for cloud: GCS, MLFLow, ...)
-- `notebooks/`: your notebooks, tracked by git, but avoid working with different people on one notebook (include your name in the filename)
-
-### Front-end
+# Repository structure (highlights)
 
 - `app.py`: main streamlit page
 - `pages/`: put a .py file per page here if you use multiple pages

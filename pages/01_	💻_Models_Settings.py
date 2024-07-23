@@ -1,8 +1,9 @@
-import os
+# import os
 import streamlit as st
-import requests
+# from streamlit_gsheets import GSheetsConnection
+# import requests
 from PIL import Image
-from io import BytesIO
+# from io import BytesIO
 
 # Page configuration and CSS
 st.set_page_config(page_title="Streamlit Navigation Example", layout="wide")
@@ -77,13 +78,32 @@ button_html = """
     </style>
     """
 
-## Page Team
+## Page Settings
+st.title("Settings")
 
-st.title("Team")
-st.write('')
-st.write("The Cracks Detector development team consists of dedicated data scientists who came together as part of Le Wagon's renowned Data Science bootcamp. With a shared passion for technology and innovation, they have made it their mission to develop a solution that predicts cracks, revolutionizing climate change impact analysis and infrastructure safety and maintenance.")
-st.write('')
-col1, col2 = st.columns([5, 2])
-with col1:
-    image = Image.open("media/Team_all.jpg")
+# Models Comparison Section
+with st.expander("**Models Comparison**"):
+    st.markdown('<p class="big-font">Models</p>', unsafe_allow_html=True)
+    st.write("Two models are used for the predictions, here are described the parameters we used to train them")
+    image = Image.open("media/models_settings.png")
     st.image(image, use_column_width=True)
+
+# Severity Section
+with st.expander("**Severity of Cracks**"):
+    st.markdown('<p class="big-font">Severity Setting</p>', unsafe_allow_html=True) # st.write('**Severity Setting**')
+    st.markdown("""
+    **Computation**:
+    Crack Density (Cd) is calculated as the total cracked area divided by the total surface area of the concrete element being evaluated. The mask issued from segmentation is 5 times larger than the cracks themselves. Thresholds indicated below include the ratio of 5 between mask and crack.
+
+    **Low Severity**:
+    - Crack Density less than 0.5%
+    - Indicates minor surface cracks that may not significantly affect structural integrity.
+
+    **Moderate Severity**:
+    - Crack Density between 0.5% and 2.5%
+    - Represents a more considerable number or width of cracks that could affect durability and may require repair.
+
+    **High Severity**:
+    - Crack Density greater than 2.5%
+    - Indicates a high density of cracks or very wide cracks that could compromise structural integrity and require immediate attention and repair ([American Concrete Institute] (https://www.concrete.org/publications/internationalconcreteabstractsportal/m/details/id/18555)
+    """)
