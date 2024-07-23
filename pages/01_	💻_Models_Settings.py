@@ -102,19 +102,20 @@ with st.expander("Severity of Cracks"):
     **Computation**:
     Crack Density (Cd) is calculated as the total cracked area divided by the total surface area of the concrete element
     being evaluated.
+    The mask issued from segmentation is 5 times larger than the cracks themselves. Thresholds indicated below include the ratio of 5 between mask and crack.
 
     **Low Severity**:
-    - Crack Density less than 0.1%
+    - Crack Density less than 0.5%
     - Indicates minor surface cracks that may not significantly affect structural integrity.
 
     **Moderate Severity**:
 
-    - Crack Density between 0.1% and 0.5%
+    - Crack Density between 0.5% and 2.5%
     - Represents a more considerable number or width of cracks that could affect durability and may require repair.
 
     **High Severity**:
 
-    - Crack Density greater than 0.5%
+    - Crack Density greater than 2.5%
     - Indicates a high density of cracks or very wide cracks that could compromise structural integrity and require immediate attention and repair
     ([American Concrete Institute]
     (https://www.concrete.org/publications/internationalconcreteabstractsportal/m/details/id/18555)
