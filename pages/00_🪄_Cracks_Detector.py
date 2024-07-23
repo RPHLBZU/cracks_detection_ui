@@ -203,9 +203,10 @@ if st.button("Calculate crack severity"):
     response=requests.post(url_severity,files=files)
     results=response.json()["severity"]
     if response.status_code==200:
-        col1, col2 = st.columns([3, 1])
+        col1, col2 = st.columns([1,3])
         with col1:
-            st.write(results)
+            st.progress(results/1)
+            st.write(f"Severity: {results}%")
 
     else :
         col1, col2 = st.columns([2, 2])
@@ -214,8 +215,3 @@ if st.button("Calculate crack severity"):
             st.image(image, use_column_width=True)
 st.write("")
 st.write("")
-    # Result
-#col1, col2 = st.columns([2, 2])
-#with col1: # Result Cracks
-#    image = Image.open("/Users/miraweber/Desktop/Cracks.jpg")
-#    st.image(image, use_column_width=True)
