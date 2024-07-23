@@ -202,11 +202,17 @@ if st.button("Calculate crack severity"):
     files = {"file":  uploaded_file.getvalue()}
     response=requests.post(url_severity,files=files)
     results=response.json()["severity"]
+
     if response.status_code==200:
 
-            st.progress(results)
+            if results <0.01:
+                delta ="Low Severity"
+            elif results <0.05 :
+                delta='-Moderate Severity'
+            else :
+                delta="-High Severity"
 
-            st.metric(label="Severity", value=f"{results}")
+            st.metric(label="Severity", value=f"{results*100} %", delta=delta)
 
     else :
         col1, col2 = st.columns([2, 2])
