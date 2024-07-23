@@ -111,7 +111,7 @@ if 'Detect if there is a crack' not in st.session_state:
         st.write("")
         st.write("")
         st.write("")
-        st.link_button("Start Cracks Detector", "http://localhost:8501/Cracks_Detector", type="primary")
+        st.link_button("Start Cracks Detector", "https://cracksdetectionui-a8f28peutiafdfxnrmdqzw.streamlit.app/Cracks_Detector", type="primary")
     #Right side of page (Picture)
     with col2: #Image
         image = Image.open("media/Unbenannt.jpg")
