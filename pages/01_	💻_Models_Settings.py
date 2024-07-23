@@ -1,9 +1,9 @@
-import os
+# import os
 import streamlit as st
 # from streamlit_gsheets import GSheetsConnection
-import requests
+# import requests
 from PIL import Image
-from io import BytesIO
+# from io import BytesIO
 
 # Page configuration and CSS
 st.set_page_config(page_title="Streamlit Navigation Example", layout="wide")
@@ -79,40 +79,33 @@ button_html = """
     """
 
 ## Page Settings
-
 st.title("Settings")
-st.markdown('<p class="big-font">Models</p>', unsafe_allow_html=True)
-st.write("Two models are used for the predictions, here is described the parameters we used to train them")
-# Table of Models
 
-image = Image.open("media/models_settings.png")
-st.image(image, use_column_width=True)
-
-
-
-image = Image.open("media/yolo_architecture.png")
-st.image(image, use_column_width=True)
+# Models Comparison Section
+with st.expander("Models Comparison"):
+    st.markdown('<p class="big-font">Models</p>', unsafe_allow_html=True)
+    st.write("Two models are used for the predictions, here are described the parameters we used to train them")
+    image = Image.open("media/models_settings.png")
+    st.image(image, use_column_width=True)
 
 
+# YOLO Architecture Section
+with st.expander("YOLO Architecture"):
+    image = Image.open("media/yolo_architecture.png")
+    st.image(image, use_column_width=True)
 
 
-# # Create a connection object (ling to google sheet - does not work (fails to import stramlit-gsheets))
-# conn = st.connection("gsheets", type=GSheetsConnection)
-# df = conn.read()
-# st.dataframe(df)
-
-
-# Severity Setting/ Slider
-# st.markdown('<p class="big-font">Severity Setting</p>', unsafe_allow_html=True) # st.write('**Severity Setting**')
-# st.write("Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text")
-# with st.container():
-#     st.markdown('<div class="slider-container">', unsafe_allow_html=True)
-#     percent = st.slider(
-#         '',
-#         min_value=0,
-#         max_value=100,
-#         value=50  # Default 50%
-#     )
-# st.markdown('</div>', unsafe_allow_html=True)
-
-# st.write(f'You have choosen {percent}%')
+# Severity Setting Section
+with st.expander("Severity Setting"):
+    st.markdown('<p class="big-font">Severity Setting</p>', unsafe_allow_html=True) # st.write('**Severity Setting**')
+    st.write("Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text")
+    with st.container():
+        st.markdown('<div class="slider-container">', unsafe_allow_html=True)
+        percent = st.slider(
+            '',
+            min_value=0,
+            max_value=100,
+            value=50  # Default 50%
+        )
+    st.markdown('</div>', unsafe_allow_html=True)
+    st.write(f'You have choosen {percent}%')
