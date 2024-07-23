@@ -80,8 +80,11 @@ button_html = """
 
 st.title("Vision")
 st.write("**Beta Version:**")
-#st.markdown('<p class="big-font">Beta Version</p>', unsafe_allow_html=True) # st.write('**Severity Setting**')
-st.write("Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text")
-st.write("**Next Steps:**")
-#st.markdown('<p class="big-font">Next Steps</p>', unsafe_allow_html=True) # st.write('**Severity Setting**')
-st.write("Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text")
+st.write(" The beta version of Cracks Detector represents a significant advance in infrastructure monitoring and maintenance. This innovative solution uses advanced image processing techniques and deep learning approaches to efficiently detect and assess cracks in roads and bridges. The Cracks Detector integrates two powerful models for image classification and segmentation: YOLO and a Convolutional Neural Network. These models provide three main outputs in four steps: classification if there are cracks or not, segmentation of the affected areas and determination of the severity of the cracks. This beta version shows the potential to revolutionize infrastructure maintenance by providing accurate and fast analysis to ensure the safety and longevity of our roads and bridges.")
+image = Image.open("media/Beta.jpg")
+st.image(image, use_column_width=True)
+
+st.write("**Vision and Next Steps:**")
+st.write("Our vision for the Cracks Detector is to enable a comprehensive global perspective on and evaluation of infrastructure. Furthermore, we plan to integrate further data sources like 3D to make the assessment of infrastucture as easy as possible. Besides, reinforcement learning is planed to be integrated to improve analysis accuracy and develop adaptive maintenance strategies. With these steps the Cracks Detector should further contribute to revolutionizing the safety and sustainability of infrastructure worldwide.")
+image = Image.open("media/Vision.jpg")
+st.image(image, use_column_width=True)
