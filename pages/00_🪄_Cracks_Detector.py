@@ -206,9 +206,9 @@ if st.button("Calculate crack severity"):
 
     if response.status_code==200:
 
-            if results <0.01:
+            if results <0.005:
                 delta ="Low Severity"
-            elif results <0.05 :
+            elif results <0.025 :
                 delta='-Moderate Severity'
             else :
                 delta="-High Severity"
