@@ -94,7 +94,9 @@ with st.expander("**Data used for training**"):
 
         Data Set for Segmentation:
         - Roboflow Crack-Detection:
-        These more than 100 images were used for training, validation and test.
+        Over 4k images were used for training, validation and test.
+
+        Distribution (train/val/test) are indicated in Models Settings page.
         """)
 
 with st.expander("**Pre-Trained Model and Architecture used**"):

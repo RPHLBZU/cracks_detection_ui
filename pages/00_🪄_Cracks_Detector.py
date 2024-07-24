@@ -203,6 +203,7 @@ if st.button("Calculate crack severity"):
     files = {"file":  uploaded_file.getvalue()}
     response=requests.post(url_severity,files=files)
     results=response.json()["severity"]
+    results = round(results,4)
 
     if response.status_code==200:
 
