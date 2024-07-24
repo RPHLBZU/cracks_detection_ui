@@ -6,7 +6,6 @@
 # Sreamlit and extensions
 streamlit
 requests
-streamlit-gsheets
 
 
 # If you want to display datasets, or if your API returns you dataframes,
@@ -16,5 +15,4 @@ streamlit-gsheets
 # pandas
 
 pillow
-
 streamlit_option_menu
