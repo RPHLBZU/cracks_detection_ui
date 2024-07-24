@@ -104,7 +104,7 @@ if 'Detect if there is a crack' not in st.session_state:
     col1, col2 = st.columns([2.5, 1.5])
     #Left side of page (Text)
     with col1: #Text
-        st.title("Analyze cracks with the cracks detector to prevent accitents and to anticipate climate change")
+        st.title("Analyze cracks with the cracks detector to prevent accidents and to anticipate climate change")
         st.write("")
         st.write("")
         st.write("")
