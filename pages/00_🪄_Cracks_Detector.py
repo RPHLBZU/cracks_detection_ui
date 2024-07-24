@@ -76,6 +76,27 @@ button_html = """
     }
     </style>
     """
+scroll_to_top_script = """
+    <script>
+    function scrollToTop() {
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+    </script>
+"""
+
+
+## Button setup
+
+
+if 'button1' not in st.session_state:
+    st.session_state.button1 = False
+if 'button2' not in st.session_state:
+    st.session_state.button2 = False
+if 'button3' not in st.session_state:
+    st.session_state.button3 = False
+
+
+
 ## Cracks Detector Page
 
 
@@ -103,6 +124,7 @@ url_severity="https://cracksdetectionapi-5ojt6thguq-ew.a.run.app/predict_severit
 
 st.set_option('deprecation.showfileUploaderEncoding', False)
 
+
 uploaded_file = st.file_uploader("Choose an Image")
 
 if uploaded_file is not None:
@@ -110,7 +132,6 @@ if uploaded_file is not None:
     with col1:
         image = Image.open(uploaded_file)
         st.image(image, caption='Uploaded Image', use_column_width=True)
-
         # Checkbox
 st.checkbox('Accept terms and conditions')
 
@@ -120,11 +141,13 @@ st.write('Two models will be running YOLO & CNN')
 st.write('For the "CNN" one you have access to the probability of having cracks returned by the model - NOTA to enable a good recall and alert engineer even when there is doubt - the threshod has been put to 34%, "if probability is higher than 34% an alerte will be display"')
 
 if st.button("Detect if there is a crack"):
-    # st.session_state.button1 = not st.session_state.button1
+    st.session_state.button1 = not st.session_state.button1
     # print is visible in the server output, not in the page
+
+if st.session_state.button1:
     files = {"file":  uploaded_file.getvalue()}
     response=requests.post(url,files=files)
-    col1, col2 = st.columns([2, 2])
+    col1, col2, col3 = st.columns([2, 2, 2])
     if response.status_code==200:
 
         with col1:
@@ -164,26 +187,33 @@ if st.button("Detect if there is a crack"):
             st.image(image, use_column_width=True)
             results_UI=f'The probability of having cracks, returned by the CNN model, is {round(results)} %'
             st.write(results_UI)
+else :
+    st.write('Click on Me 👆')
 
 # Step 3:
 st.markdown('<p class="big-font">Step 3: Find out the location of the crack (Segmentation)</p>', unsafe_allow_html=True)  #st.write("**Step 3: Find out the location of the crack (Segmentation)**")
 st.write('⚠️ - Warning - only the "YOLO" model displays the location of the cracks if there are any')
+
 if st.button("Detect location of the crack"):
+    st.session_state.button2 = not st.session_state.button2
+
+if st.session_state.button2:
     files = {"file":  uploaded_file.getvalue()}
     response=requests.post(url,files=files)
     if response.status_code==200:
-        col1, col2 = st.columns([3, 1])
+        col1, col2 = st.columns([2, 1])
         with col1:
             image_stream = BytesIO(response.content)
             image = Image.open(image_stream)
-
-            st.image(image, use_column_width=True)
+            st.write("")
+            st.image(image, use_column_width=True, )
     else :
-        col1, col2 = st.columns([2, 2])
+        col1, col2, col3 = st.columns([2, 2, 2])
         with col1:
             image = Image.open("media/No_cracks.jpg")
             st.image(image, use_column_width=True)
-
+else :
+    st.write('Click on Me 👆')
 
 #        # Result
 #        col1, col2 = st.columns([2, 2])
@@ -199,7 +229,11 @@ if st.button("Detect location of the crack"):
 st.markdown('<p class="big-font">Step 4: Estimate the severity of the cracks</p>', unsafe_allow_html=True)  #st.write("**Step 4: Estimate the severity of the crack**")
 st.write('⚠️ - Warning - Only the YOLO model gives us the severity - The calculation of this parameter is still in process. See Seetings and Vision for more information' )
 st.write("")
+
 if st.button("Calculate crack severity"):
+    st.session_state.button3 = not st.session_state.button3
+
+if st.session_state.button3:
     files = {"file":  uploaded_file.getvalue()}
     response=requests.post(url_severity,files=files)
     results=response.json()["severity"]
@@ -221,5 +255,13 @@ if st.button("Calculate crack severity"):
         with col1:
             image = Image.open("media/No_cracks.jpg")
             st.image(image, use_column_width=True)
-st.write("")
-st.write("")
+else :
+    st.write('Click on Me 👆')
+
+# st.write("")
+
+# st.markdown(scroll_to_top_script, unsafe_allow_html=True)
+# if st.button("Load another picture", on_click="scrollToTop()"):
+#     st.session_state.button1 = False
+#     st.session_state.button2 = False
+#     st.session_state.button3 = False
