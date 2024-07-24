@@ -32,9 +32,6 @@ st.markdown("""
         cursor: pointer;
         border-radius: 12px;
     }
-    .stButton>button:hover {
-        background-color: #FFFFFF;
-    }
     .big-font {
         font-size:30px !important;
         font-weight: bold !important;
