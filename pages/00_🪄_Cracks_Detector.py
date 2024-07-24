@@ -237,7 +237,7 @@ if st.session_state.button3:
     files = {"file":  uploaded_file.getvalue()}
     response=requests.post(url_severity,files=files)
     results=response.json()["severity"]
-    results = round(results,4)
+
 
     if response.status_code==200:
 
@@ -248,7 +248,7 @@ if st.session_state.button3:
             else :
                 delta="-High Severity"
 
-            st.metric(label="Severity", value=f"{results*100} %", delta=delta)
+            st.metric(label="Severity", value=f"{results*100:.2f} %", delta=delta)
 
     else :
         col1, col2 = st.columns([2, 2])
