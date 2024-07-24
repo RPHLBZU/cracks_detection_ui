@@ -124,8 +124,19 @@ url_severity="https://cracksdetectionapi-5ojt6thguq-ew.a.run.app/predict_severit
 
 st.set_option('deprecation.showfileUploaderEncoding', False)
 
+uploaded_file = None
+
+if st.button("clear previous results"):
+    st.session_state.button1 = False
+    st.session_state.button2 = False
+    st.session_state.button3 = False
+    uploaded_file = None
+    st.experimental_rerun()
+
+st.write("")
 
 uploaded_file = st.file_uploader("Choose an Image")
+
 
 if uploaded_file is not None:
     col1, col2 = st.columns([1, 5])
@@ -133,7 +144,11 @@ if uploaded_file is not None:
         image = Image.open(uploaded_file)
         st.image(image, caption='Uploaded Image', use_column_width=True)
         # Checkbox
+
+
 st.checkbox('Accept terms and conditions')
+
+
 
 # Step 2:
 st.markdown('<p class="big-font">Step 2: Find out if there is a crack (Classification)</p>', unsafe_allow_html=True) #st.write("**Step 2: Find out if there is a crack (Classification)**")
@@ -257,6 +272,8 @@ if st.session_state.button3:
             st.image(image, use_column_width=True)
 else :
     st.write('Click on Me 👆')
+
+
 
 # st.write("")
 
