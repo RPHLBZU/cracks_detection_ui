@@ -56,23 +56,6 @@ st.markdown("""
 """,
 unsafe_allow_html=True)
 
-button_html = """
-    <style>
-    .button {
-        background-color: #00878D;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 4px 2px;
-        cursor: pointer;
-        border-radius: 12px;
-    }
-    </style>
-    """
 scroll_to_top_script = """
     <script>
     function scrollToTop() {
