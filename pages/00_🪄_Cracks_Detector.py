@@ -9,16 +9,6 @@ st.set_page_config(page_title="Streamlit Navigation Example", layout="wide")
 
 st.markdown("""
     <style>
-    .css-1d391kg {
-        background-color: #f8f9fa;
-        color: #000000;
-    }
-    .css-1d391kg div {
-        background-color: #000000;
-    }
-    .css-1d391kg a {
-        color: white;
-    }
     .stButton>button {
         background-color: #00878D;
         color: white;
@@ -133,9 +123,9 @@ st.checkbox('Accept terms and conditions')
 # Step 2:
 st.markdown('<p class="big-font">Step 2: Find out if there is a crack (Classification)</p>', unsafe_allow_html=True) #st.write("**Step 2: Find out if there is a crack (Classification)**")
 st.write('Two models will be running YOLO & CNN')
-st.write('For the "CNN" one you have access to the probability of having cracks returned by the model - NOTA to enable a good recall and alert engineer even when there is doubt - the threshod has been put to 34%, "if probability is higher than 34% an alerte will be display"')
+st.write('For the "CNN" one you have access to the probability of having cracks returned by the model - NOTE: to enable a good recall and alert engineers even when there is doubt, the threshold has been put to 34%, "if probability is higher than 34% an alert will be displayed"')
 
-if st.button("Detect if there is a crack"):
+if st.button("Detect if there are cracks"):
     st.session_state.button1 = not st.session_state.button1
     # print is visible in the server output, not in the page
 
@@ -186,10 +176,10 @@ else :
     st.write('Click on Me 👆')
 
 # Step 3:
-st.markdown('<p class="big-font">Step 3: Find out the location of the crack (Segmentation)</p>', unsafe_allow_html=True)  #st.write("**Step 3: Find out the location of the crack (Segmentation)**")
+st.markdown('<p class="big-font">Step 3: Find out the location of the cracks (Segmentation)</p>', unsafe_allow_html=True)  #st.write("**Step 3: Find out the location of the crack (Segmentation)**")
 st.write('⚠️ - Warning - only the "YOLO" model displays the location of the cracks if there are any')
 
-if st.button("Detect location of the crack"):
+if st.button("Detect location of the cracks"):
     st.session_state.button2 = not st.session_state.button2
 
 if st.session_state.button2:
