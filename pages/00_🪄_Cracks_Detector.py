@@ -33,7 +33,7 @@ st.markdown("""
         border-radius: 12px;
     }
     .stButton>button:hover {
-        background-color: #00878D;
+        background-color: #FFFFFF;
     }
     .big-font {
         font-size:30px !important;
@@ -84,7 +84,7 @@ st.title("Start to analyze your image for cracks with the Cracks Detector")
 # Step 1:
     # Selection of Option (Bulding, Street etc.)
 st.markdown('<p class="big-font">Step 1: Choose your image(s)</p>', unsafe_allow_html=True) #st.write("**Step 1: Choose your image(s)**")
-st.write('⚠️ - Warning - the models have been trained on "zoomed images" - Please if you want better results, zoom in your image before uploading it')
+st.write('⚠️ - Warning - the models have been trained on "zoomed images" - For better results, please zoom in your image before uploading it')
 col1, col2 = st.columns([1, 3])
 with col1:
         image = Image.open("media/Image_zoom.jpg")
@@ -167,7 +167,7 @@ if st.button("Detect if there is a crack"):
 
 # Step 3:
 st.markdown('<p class="big-font">Step 3: Find out the location of the crack (Segmentation)</p>', unsafe_allow_html=True)  #st.write("**Step 3: Find out the location of the crack (Segmentation)**")
-st.write('⚠️ - Warning - only the "YOLO" model gives us the display of the cracks if cracks there are')
+st.write('⚠️ - Warning - only the "YOLO" model displays the location of the cracks if there are any')
 if st.button("Detect location of the crack"):
     files = {"file":  uploaded_file.getvalue()}
     response=requests.post(url,files=files)
@@ -197,7 +197,7 @@ if st.button("Detect location of the crack"):
 
 # Step 4:
 st.markdown('<p class="big-font">Step 4: Estimate the severity of the cracks</p>', unsafe_allow_html=True)  #st.write("**Step 4: Estimate the severity of the crack**")
-st.write('⚠️ - Warning - Only the éYOLO model gives us the severity - The calculation of this parameter is still under study - see the Seetings and Vision page for more information' )
+st.write('⚠️ - Warning - Only the YOLO model gives us the severity - The calculation of this parameter is still in process. See Seetings and Vision for more information' )
 st.write("")
 if st.button("Calculate crack severity"):
     files = {"file":  uploaded_file.getvalue()}
