@@ -10,7 +10,7 @@ st.set_page_config(page_title="Streamlit Navigation Example", layout="wide")
 st.markdown("""
     <style>
     .stButton>button {
-        background-color: #007BFF !important;
+        background-color: #00878D;
         color: white;
         border: none;
         padding: 10px 20px;
@@ -21,6 +21,7 @@ st.markdown("""
         margin: 4px 2px;
         cursor: pointer;
         border-radius: 12px;
+        transition: background-color 0.3s ease !important;
     }
 
     .big-font {
