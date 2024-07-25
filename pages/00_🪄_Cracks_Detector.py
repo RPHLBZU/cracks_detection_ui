@@ -10,19 +10,18 @@ st.set_page_config(page_title="Streamlit Navigation Example", layout="wide")
 st.markdown("""
     <style>
     .stButton>button {
-        background-color: #007BFF !important; /* Bright blue */
-        color: white !important; /* Ensure text is white for visibility */
-        border: none !important;
-        padding: 12px 24px !important;
-        text-align: center !important;
-        text-decoration: none !important;
-        display: inline-block !important;
-        font-size: 18px !important;
-        margin: 6px 2px !important;
-        cursor: pointer !important;
-        border-radius: 8px !important;
-        transition: background-color 0.3s ease !important;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important; /* Optional: Add a subtle shadow for better visibility */
+        background-color: #00878D;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 12px;
+    }
 
     .big-font {
         font-size:30px !important;
