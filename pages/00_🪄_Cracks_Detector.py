@@ -10,7 +10,7 @@ st.set_page_config(page_title="Streamlit Navigation Example", layout="wide")
 st.markdown("""
     <style>
     .stButton>button {
-        background-color: #00878D;
+        background-color: #007BFF !important;
         color: white;
         border: none;
         padding: 10px 20px;
