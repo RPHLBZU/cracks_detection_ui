@@ -227,15 +227,19 @@ if st.session_state.button3:
 
 
     if response.status_code==200:
-
+            col1, col2, col3 = st.columns([2, 2, 2])
             if results <0.005:
                 delta ="Low Severity"
+                with col1:
+                    st.metric(label="Severity", value=f"{results*100:.2f} %", delta=delta)
             elif results <0.025 :
                 delta='-Moderate Severity'
+                with col2:
+                    st.metric(label="Severity", value=f"{results*100:.2f} %", delta=delta)
             else :
                 delta="-High Severity"
-
-            st.metric(label="Severity", value=f"{results*100:.2f} %", delta=delta)
+                with col3:
+                    st.metric(label="Severity", value=f"{results*100:.2f} %", delta=delta)
 
     else :
         col1, col2 = st.columns([2, 2])
@@ -244,6 +248,23 @@ if st.session_state.button3:
             st.image(image, use_column_width=True)
 else :
     st.write('Click on Me 👆')
+
+col1, col2, col3 = st.columns([2, 2, 2])
+with col1:
+    st.markdown("""
+    **Low Severity**:
+    - Crack Density less than 0.5%
+    """)
+with col2:
+    st.markdown("""
+    **Moderate Severity**:
+    - Crack Density between 0.5% and 2.5%
+    """)
+with col3:
+    st.markdown("""
+    **High Severity**:
+    - Crack Density greater than 2.5%
+    """)
 
 
 
